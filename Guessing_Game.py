@@ -22,22 +22,41 @@ def difficulty():
 
 
 def game(diff):
+    lives = 15
     correct = False
     attempts = 0
     number = random.randint(1, diff)
     while not correct:
         guessed = input("What is your guess? ")
-        if guessed.isdigit():
+        if guessed.isdigit() and lives > 1:
             if int(guessed) == number:
                 print("correct!")
                 print("you guessed " + str(attempts) + " times")
                 correct = True
             elif int(guessed) < number:
                 print("too low...")
+                lives -= 1
+                hearts = []
+                index1 = 0
+                while lives > index1:
+                    hearts.append("♥")
+                    index1 += 1
+                print(''.join(hearts))
                 attempts += 1
             elif int(guessed) > number:
                 print("too high...")
+                lives -= 1
+                hearts = []
+                index2 = 0
+                while lives > index2:
+                    hearts.append("♥")
+                    index2 += 1
+                print(''.join(hearts))
                 attempts += 1
+        elif lives == 1:
+            print("you lost")
+            print("the answer was " + str(number))
+            correct = True
         else:
             print("error")
 
