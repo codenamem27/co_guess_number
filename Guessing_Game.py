@@ -1,15 +1,15 @@
 import random
 
-
 def difficulty():
     numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
     check = True
-    difficult = input("choose difficulty 1-10:")
+    difficult = input("choose difficulty 1-10: ")
     while check:
         if not difficult in numbers:
             print("try again")
-            difficult = input("choose difficulty 1-10:")
+            difficult = input("choose difficulty 1-10: ")
         else:
+            print("please wait until text appears")
             check = False
     place_value = 0
     index = 0
@@ -26,6 +26,14 @@ def game(diff):
     correct = False
     attempts = 0
     number = random.randint(1, diff)
+    bonus = []
+
+    bonus_chance = 100
+    if diff < 11:
+        bonus_chance = 10
+
+    for i in range(int(diff / bonus_chance)):
+        bonus.append(str(random.randint(1, diff)))
     while not correct:
         guessed = input("What is your guess? ")
         if guessed.isdigit() and lives > 1:
@@ -33,6 +41,17 @@ def game(diff):
                 print("correct!")
                 print("you guessed " + str(attempts) + " times")
                 correct = True
+            elif guessed in bonus:
+                print("you found a bonus number!")
+                bonus.remove(guessed)
+                lives += 10
+                hearts = []
+                index1 = 0
+                while lives > index1:
+                    hearts.append("♥")
+                    index1 += 1
+                print(''.join(hearts) + " (" + str(lives) + ")")
+                attempts += 1
             elif int(guessed) < number:
                 print("too low...")
                 lives -= 1
@@ -41,7 +60,7 @@ def game(diff):
                 while lives > index1:
                     hearts.append("♥")
                     index1 += 1
-                print(''.join(hearts))
+                print(''.join(hearts) + " (" + str(lives) + ")")
                 attempts += 1
             elif int(guessed) > number:
                 print("too high...")
@@ -51,10 +70,10 @@ def game(diff):
                 while lives > index2:
                     hearts.append("♥")
                     index2 += 1
-                print(''.join(hearts))
+                print(''.join(hearts) + " (" + str(lives) + ")")
                 attempts += 1
         elif lives == 1:
-            print("you lost")
+            print("💀 you lost 💀")
             print("the answer was " + str(number))
             correct = True
         else:
