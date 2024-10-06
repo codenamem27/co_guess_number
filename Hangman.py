@@ -1,13 +1,13 @@
 from wonderwords import RandomWord
 
 
-def checkLetter(letter, word2, guess_word):
-    for c in word2:
+def checkletter(letter, worded, guess_worded):
+    for c in worded:
         if c == letter:
-            guess_word[word2.index(c)] = c
-            word2[word2.index(c)] = '*'
+            guess_worded[worded.index(c)] = c
+            worded[worded.index(c)] = c
 
-    return guess_word
+    return guess_worded
 
 def hangman_symbol(stage):
     if stage == 10:
@@ -88,23 +88,34 @@ def hangman_symbol(stage):
         print("=========")
 
 word = list(RandomWord().word(word_min_length=5, word_max_length=5))
-
+guessed = []
+print(word)
 guess_word = ['_' for x in word]
-word_display2 = "_ _ _ _ _"
-lives = 10
-while '_' in guess_word:
-    guess = input('Guess a letter: ')
-    word_display = checkLetter(guess, word, guess_word)
-    print( ' '.join(word_display))
-    if guess not in guess_word:
-        hangman_symbol(lives)
-        lives -= 1
-    else:
-        guess_word.remove(guess)
 
-    word_display2 = word_display
+print(" ".join(guess_word))
+lives = 11
+while '_' in guess_word:
+
+    guess = input('Guess a letter: ')
+    print(" ".join(checkletter(guess, word, guess_word)))
+    if guess not in word:
+        lives -= 1
+        hangman_symbol(lives)
+    elif guess in guessed:
+        lives -= 1
+        hangman_symbol(lives)
+    else:
+        guessed.append(guess)
     if lives == 0:
         print("💀 you lost 💀")
         print("The answer was " + ''.join(word))
+
+
+
+
+
+
+
+
 
 
