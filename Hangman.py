@@ -1,4 +1,3 @@
-from pprint import pprint
 
 from wonderwords import RandomWord
 import random
@@ -22,7 +21,7 @@ def check_letter(letter, worded, guess_worded):
     for c in worded:
         if c == letter:
             guess_worded[worded.index(c)] = c
-            worded[worded.index(c)] = c
+            worded[worded.index(c)] = "*"
 
     return guess_worded
 
@@ -114,13 +113,8 @@ def game():
     else:
         length = int(length) + 2
         word = list(RandomWord().word(word_min_length=int(length), word_max_length=int(length)))
-        need = True
-        while need:
-            if len(word) != len(set(word)):
-                word = list(RandomWord().word(word_min_length=int(length), word_max_length=int(length)))
-            else:
-                need = False
-
+    answer = "".join(word)
+    print(word)
     letters = []
     guessed = []
     guess_word = ['_' for x in word]
@@ -144,7 +138,7 @@ def game():
 
         if lives == 0:
             print("💀 you lost 💀")
-            print("The answer was '" + ''.join(word) + "'")
+            print("The answer was '" + ''.join(answer) + "'")
             correct = False
         if 4 > lives > 0:
             print("🚨warning!🚨 you only have " + str(lives) +" lives left")
@@ -153,7 +147,8 @@ def game():
             print("letter has already been guessed")
         else:
             letters.append(guess)
-        print(letters)
+        if lives != 0:
+            print(letters)
 
     if correct:
         print("well done")
