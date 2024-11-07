@@ -1,5 +1,11 @@
 import random
+import textwrap
 
+def get_key_by_value(dictionary, value):
+    for key, val in dictionary.items():
+        if val == value:
+            return key
+    return None
 
 cyphers = {
     "a" : 4477,
@@ -66,7 +72,7 @@ cyphers = {
 }
 
 def encrypt(encryption):
-    number = random.randint(1, 4000)
+    number = random.randint(1000, 4000)
     output = []
 
     for char in encryption:
@@ -75,7 +81,20 @@ def encrypt(encryption):
 
     print(str(number) + " " + "".join(output))
 
-def decrypt(phrase):
+
+def decrypt(numbers, key):
+    decryption = textwrap.wrap(numbers, 4)
+
+    output = []
+
+    for item in decryption:
+        item_no = int(item) - int(key)
+        output.append(get_key_by_value(cyphers, item_no))
+    print(''.join(output))
+
+
+
+
     
 
 
@@ -114,12 +133,13 @@ while loop:
             check = True
             while check:
                 phrase1 = input("insert phrase: ")
-                if not phrase1.isdigit():
-                    print("try again")
-                else:
-                    check = False
-            phrase = phrase1
-            decrypt(phrase)
+
+
+                check = False
+            phrase = phrase1[5:]
+            first = phrase1[:4]
+
+            decrypt(phrase, first)
             looping = True
             while looping:
                 again = input("use again? Answer 'y' for yes and 'n' for no: ")
