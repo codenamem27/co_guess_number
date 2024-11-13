@@ -8,8 +8,8 @@ def get_key_by_value(dictionary, value):
     return None
 
 cyphers = {
-    "a" : 4477,
-    "b" : 5476,
+    "a": 4477,
+    "b": 5476,
     "c": 2349,
     "d": 1420,
     "e": 4757,
@@ -54,6 +54,7 @@ cyphers = {
     ">": 3049,
     "?": 1104,
     "/": 2534,
+    "\\": 4312,
     "_": 4438,
     "-": 3228,
     "+": 3232,
@@ -68,7 +69,13 @@ cyphers = {
     "1": 4367,
     "0": 2605,
     "=": 4512,
-    " ": 2354
+    " ": 2354,
+    "[": 4134,
+    "]": 3214,
+    "{": 4123,
+    "}": 5123,
+    "|": 4332,
+    "π": 5143
 }
 
 def encrypt(encryption):
@@ -76,10 +83,14 @@ def encrypt(encryption):
     output = []
 
     for char in encryption:
+        if char in cyphers:
+            output.append(str(cyphers[char] + number))
+        else:
+            return"This phrase has produced an error"
 
-        output.append(str(cyphers[char] + number))
 
-    print(str(number) + " " + "".join(output))
+
+    return str(number) + "".join(output)
 
 
 def decrypt(numbers, key):
@@ -90,21 +101,10 @@ def decrypt(numbers, key):
     for item in decryption:
         item_no = int(item) - int(key)
         output.append(get_key_by_value(cyphers, item_no))
-    print(''.join(output))
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
+    if len(output) < 4:
+        print("Your phrase made an error")
+    else:
+        print(''.join(output))
 
 loop = True
 need_loop = True
@@ -112,11 +112,11 @@ check = True
 while loop:
 
     while need_loop:
-        __crypt = input("e for encryption or d for decryption: ")
-        if __crypt == "e":
+        _crypt = input("e for encryption or d for decryption: ")
+        if _crypt == "e":
             phrase1 = input("insert phrase: ")
             phrase = phrase1.lower()
-            encrypt(phrase)
+            print(encrypt(phrase))
             looping = True
             while looping:
                 again = input("use again? Answer 'y' for yes and 'n' for no: ")
@@ -125,18 +125,19 @@ while loop:
                     need_loop = False
                     looping = False
                 elif again != "y":
+
                     print("try again")
+
                 else:
                     looping = False
-        elif __crypt == "d":
-
+                    
+                    
+        elif _crypt == "d":
             check = True
             while check:
                 phrase1 = input("insert phrase: ")
-
-
                 check = False
-            phrase = phrase1[5:]
+            phrase = phrase1[4:]
             first = phrase1[:4]
 
             decrypt(phrase, first)
