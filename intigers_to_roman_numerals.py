@@ -1,6 +1,11 @@
 
-def base(number):
-    numbers_in = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+
+
+def base(number, book):
+    numbers_in = []
+    for key in book:
+        numbers_in.append(key)
+    numbers_in.reverse()
     index = 0
     while index < 13:
         if numbers_in[index] <= number:
@@ -8,7 +13,7 @@ def base(number):
         else:
             index += 1
 
-phrase = input("Insert integer: ")s
+phrase = input("Insert integer: ")
 output = []
 roman_num_reversed = {
     1: "I",
@@ -40,7 +45,7 @@ else:
         repeat = True
 
         while repeat:
-            base_value = base(value)
+            base_value = base(value, roman_num_reversed)
             quotient = value // base_value
             remainder = value % base_value
             letter = roman_num_reversed[base_value]
