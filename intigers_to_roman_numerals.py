@@ -1,26 +1,15 @@
 
 def base(number):
-    numbers = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
-    idx = 0
-    while idx < 13:
-        if numbers[idx] <= number:
-            return numbers[idx]
+    numbers_in = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+    index = 0
+    while index < 13:
+        if numbers_in[index] <= number:
+            return numbers_in[index]
         else:
-            idx += 1
+            index += 1
 
-phrase = input("Insert integer: ")
-numbers = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
-
+phrase = input("Insert integer: ")s
 output = []
-roman_num_dict = {
-    "I": 1,
-    "V": 5,
-    "X": 10,
-    "L": 50,
-    "C": 100,
-    "D": 500,
-    "M": 1000
-}
 roman_num_reversed = {
     1: "I",
     4: "IV",
@@ -49,14 +38,18 @@ else:
         print("")
     else:
         repeat = True
+
         while repeat:
-            quotient = value // base(value)
-            remainder = value % base(value)
+            base_value = base(value)
+            quotient = value // base_value
+            remainder = value % base_value
+            letter = roman_num_reversed[base_value]
             for i in range(quotient):
-                output.append(roman_num_reversed[base(value)])
-            if remainder == 0:
+                output.append(letter)
+            if remainder <= 0:
                 repeat = False
+            else:
+                value -= base_value * quotient
+
+
         print(''.join(output))
-
-
-
