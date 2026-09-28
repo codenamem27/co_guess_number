@@ -2,3 +2,5 @@
 # hello world
 
 #mama meya!
+
+print("hello world")
