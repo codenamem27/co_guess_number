@@ -1,7 +1,9 @@
 ## co_guess_number
 # hello world
 
-#mama miya!
+#mama meya!
+
+print("hello world")
 
 testing 123
 
